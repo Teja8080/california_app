@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>California House Price Predictor</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+    <div class="page">
+
+        <!-- Header -->
+        <header class="header">
+
+            <div class="brand">
+                <div class="brand-icon">⌂</div>
+
+                <div>
+                    <h1>California Home Predictor</h1>
+                    <p>Machine Learning • Linear Regression</p>
+                </div>
+            </div>
+
+            <div class="status">
+                <span class="status-dot"></span>
+                Model Ready
+            </div>
+
+        </header>
+
+
+        <!-- Main Content -->
+        <main class="main-container">
+
+            <section class="hero">
+
+                <div class="hero-text">
+
+                    <span class="tag">AI POWERED PREDICTION</span>
+
+                    <h2>
+                        Estimate Your
+                        <span>California Home Value</span>
+                    </h2>
+
+                    <p>
+                        Enter the property details below and our
+                        Linear Regression model will estimate the
+                        house value based on the provided features.
+                    </p>
+
+                </div>
+
+            </section>
+
+
+            <!-- Prediction Card -->
+            <section class="prediction-card">
+
+                <div class="card-header">
+
+                    <div>
+                        <h3>Property Details</h3>
+                        <p>Enter the six features used by the ML model.</p>
+                    </div>
+
+                    <div class="model-badge">
+                        Linear Regression
+                    </div>
+
+                </div>
+
+
+                <form id="predictionForm">
+
+                    <div class="input-grid">
+
+                        <!-- Median Income -->
+                        <div class="input-group">
+
+                            <label for="MedInc">
+                                Median Income
+                            </label>
+
+                            <div class="input-wrapper">
+                                <span class="input-icon">$</span>
+
+                                <input
+                                    type="number"
+                                    id="MedInc"
+                                    name="MedInc"
+                                    placeholder="Example: 5"
+                                    step="any"
+                                    required
+                                >
+                            </div>
+
+                            <small>
+                                Median income of the area
+                            </small>
+
+                        </div>
+
+
+                        <!-- House Age -->
+                        <div class="input-group">
+
+                            <label for="HouseAge">
+                                House Age
+                            </label>
+
+                            <div class="input-wrapper">
+
+                                <span class="input-icon">⌂</span>
+
+                                <input
+                                    type="number"
+                                    id="HouseAge"
+                                    name="HouseAge"
+                                    placeholder="Example: 20"
+                                    step="any"
+                                    required
+                                >
+
+                            </div>
+
+                            <small>
+                                Average age of houses
+                            </small>
+
+                        </div>
+
+
+                        <!-- Average Rooms -->
+                        <div class="input-group">
+
+                            <label for="AveRooms">
+                                Average Rooms
+                            </label>
+
+                            <div class="input-wrapper">
+
+                                <span class="input-icon">▦</span>
+
+                                <input
+                                    type="number"
+                                    id="AveRooms"
+                                    name="AveRooms"
+                                    placeholder="Example: 6"
+                                    step="any"
+                                    required
+                                >
+
+                            </div>
+
+                            <small>
+                                Average number of rooms
+                            </small>
+
+                        </div>
+
+
+                        <!-- Population -->
+                        <div class="input-group">
+
+                            <label for="Population">
+                                Population
+                            </label>
+
+                            <div class="input-wrapper">
+
+                                <span class="input-icon">👥</span>
+
+                                <input
+                                    type="number"
+                                    id="Population"
+                                    name="Population"
+                                    placeholder="Example: 1000"
+                                    step="any"
+                                    required
+                                >
+
+                            </div>
+
+                            <small>
+                                Population of the area
+                            </small>
+
+                        </div>
+
+
+                        <!-- Average Occupancy -->
+                        <div class="input-group">
+
+                            <label for="AveOccup">
+                                Average Occupancy
+                            </label>
+
+                            <div class="input-wrapper">
+
+                                <span class="input-icon">👤</span>
+
+                                <input
+                                    type="number"
+                                    id="AveOccup"
+                                    name="AveOccup"
+                                    placeholder="Example: 3"
+                                    step="any"
+                                    required
+                                >
+
+                            </div>
+
+                            <small>
+                                Average occupants per household
+                            </small>
+
+                        </div>
+
+
+                        <!-- Latitude -->
+                        <div class="input-group">
+
+                            <label for="Latitude">
+                                Latitude
+                            </label>
+
+                            <div class="input-wrapper">
+
+                                <span class="input-icon">◎</span>
+
+                                <input
+                                    type="number"
+                                    id="Latitude"
+                                    name="Latitude"
+                                    placeholder="Example: 35"
+                                    step="any"
+                                    required
+                                >
+
+                            </div>
+
+                            <small>
+                                Geographic latitude
+                            </small>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- Buttons -->
+                    <div class="button-container">
+
+                        <button
+                            type="button"
+                            id="resetBtn"
+                            class="reset-button"
+                        >
+                            Reset
+                        </button>
+
+                        <button
+                            type="submit"
+                            id="predictBtn"
+                            class="predict-button"
+                        >
+                            <span id="buttonText">
+                                Predict House Value
+                            </span>
+
+                            <span
+                                id="loader"
+                                class="loader hidden"
+                            ></span>
+                        </button>
+
+                    </div>
+
+                </form>
+
+            </section>
+
+
+            <!-- Result -->
+            <section
+                id="resultCard"
+                class="result-card hidden"
+            >
+
+                <div class="result-icon">
+                    ✓
+                </div>
+
+                <div class="result-content">
+
+                    <p>Estimated House Value</p>
+
+                    <h2 id="predictionValue">
+                        $0
+                    </h2>
+
+                    <span>
+                        Prediction generated by Linear Regression
+                    </span>
+
+                </div>
+
+            </section>
+
+
+            <!-- Error -->
+            <div
+                id="errorMessage"
+                class="error-message hidden"
+            ></div>
+
+
+        </main>
+
+
+        <!-- Footer -->
+        <footer>
+
+            <p>
+                California House Price Prediction
+                <span>•</span>
+                Machine Learning Project
+            </p>
+
+        </footer>
+
+    </div>
+
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+
+</body>
+
+</html>
